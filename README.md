@@ -55,4 +55,4 @@ From there, installing P2Poolv2 will offer to install **Bitcoin Node** as a depe
 
 ## Questions / issues
 
-Open an issue on this repo, or reach out in the [p2poolv2 Matrix room](https://github.com/p2poolv2/p2poolv2#readme).
+Open an issue on this repo, or reach out in the [p2poolv2 Matrix room](https://matrix.to/#/#p2poolv2:matrix.org).
