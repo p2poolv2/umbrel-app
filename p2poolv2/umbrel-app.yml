@@ -1,0 +1,29 @@
+manifestVersion: 1
+id: p2poolv2
+name: P2Poolv2
+tagline: Peer-to-peer Bitcoin mining pool, no operator required
+icon: https://raw.githubusercontent.com/p2poolv2/umbrel-app/main/p2poolv2/icon.png
+category: bitcoin
+version: "0.13.0"
+port: 46884
+description: >-
+  P2Poolv2 lets miners coordinate directly and verify their own rewards,
+  without a centralized pool operator. It uses a share chain with uncles
+  so all your work is accounted for, and connects to your existing
+  Bitcoin node on this Umbrel.
+
+  Point your miner at this node's stratum port to start mining
+  peer-to-peer.
+developer: pool2win
+website: https://github.com/p2poolv2/p2poolv2
+submitter: Juwon Ogunseye
+submission: https://github.com/p2poolv2/umbrel-app
+repo: https://github.com/p2poolv2/p2poolv2
+support: https://github.com/p2poolv2/p2poolv2/issues
+gallery: []
+releaseNotes: ""
+dependencies:
+  - bitcoin
+path: "dashboard"
+defaultUsername: ""
+defaultPassword: ""
