@@ -28,20 +28,20 @@ You don't need a VM or physical Umbrel hardware. `getumbrel/umbrel` has a built-
 
 **Requirements:** Docker, Node.js 22+
 
-\`\`\`bash
+```bash
 git clone https://github.com/getumbrel/umbrel.git
 cd umbrel
 npm install
 npm run dev start
-\`\`\`
+```
 
 First run builds the full umbrelOS image from scratch — this takes a while (several hours is normal). Subsequent runs reuse Docker's build cache and are much faster. Keep this running in a terminal you won't accidentally close — closing it kills the build.
 
 Once it's running, get the container's IP:
 
-\`\`\`bash
+```bash
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' umbrel-dev
-\`\`\`
+```
 
 Open that IP in your browser, complete the first-time setup, then follow the same steps as above (Settings → Community App Stores → add the URL → install).
 

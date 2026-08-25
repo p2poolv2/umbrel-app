@@ -3,7 +3,7 @@ version: "3.7"
 services:
   app_proxy:
     environment:
-      APP_HOST: p2poolv2_p2poolv2_1
+      APP_HOST: p2poolv2
       APP_PORT: 46884
 
   p2poolv2:
@@ -20,3 +20,4 @@ services:
       P2POOL_BITCOINRPC_USERNAME: $APP_BITCOIN_RPC_USER
       P2POOL_BITCOINRPC_PASSWORD: $APP_BITCOIN_RPC_PASS
       P2POOL_STATIC_DIR: /var/www/dashboard
+      P2POOL_STRATUM_ZMQPUBHASHBLOCK: "tcp://$APP_BITCOIN_NODE_IP:$APP_BITCOIN_ZMQ_HASHBLOCK_PORT"
