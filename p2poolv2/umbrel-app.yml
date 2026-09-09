@@ -4,7 +4,7 @@ name: P2Poolv2
 tagline: Peer-to-peer Bitcoin mining pool, no operator required
 icon: https://raw.githubusercontent.com/p2poolv2/umbrel-app/main/p2poolv2/icon.png
 category: bitcoin
-version: "0.13.0"
+version: "0.15.2"
 port: 46884
 description: >-
   P2Poolv2 lets miners coordinate directly and verify their own rewards,
@@ -27,3 +27,4 @@ dependencies:
 path: "dashboard"
 defaultUsername: ""
 defaultPassword: ""
+deterministicPassword: true
