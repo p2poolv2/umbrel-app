@@ -1,5 +1,4 @@
 version: "3.7"
-
 services:
   app_proxy:
     environment:
@@ -7,7 +6,7 @@ services:
       APP_PORT: 46884
 
   p2poolv2:
-    image: ogunseye/p2poolv2:0.13.0
+    image: ghcr.io/p2poolv2/p2poolv2:v0.15.3
     restart: on-failure
     stop_grace_period: 1m
     ports:
@@ -16,8 +15,37 @@ services:
     volumes:
       - ${APP_DATA_DIR}/data:/p2poolv2/data
     environment:
-      P2POOL_BITCOINRPC_URL: "http://$APP_BITCOIN_NODE_IP:$APP_BITCOIN_RPC_PORT"
-      P2POOL_BITCOINRPC_USERNAME: $APP_BITCOIN_RPC_USER
-      P2POOL_BITCOINRPC_PASSWORD: $APP_BITCOIN_RPC_PASS
+      P2POOL_BITCOINRPC__URL: "http://$APP_BITCOIN_NODE_IP:$APP_BITCOIN_RPC_PORT"
+      P2POOL_BITCOINRPC__USERNAME: $APP_BITCOIN_RPC_USER
+      P2POOL_BITCOINRPC__PASSWORD: $APP_BITCOIN_RPC_PASS
       P2POOL_STATIC_DIR: /var/www/dashboard
-      P2POOL_STRATUM_ZMQPUBHASHBLOCK: "tcp://$APP_BITCOIN_NODE_IP:$APP_BITCOIN_ZMQ_HASHBLOCK_PORT"
+      P2POOL_STRATUM__ZMQPUBHASHBLOCK: "tcp://$APP_BITCOIN_NODE_IP:$APP_BITCOIN_ZMQ_HASHBLOCK_PORT"
+
+  prometheus:
+    image: prom/prometheus:latest
+    restart: on-failure
+    volumes:
+      - ${APP_DATA_DIR}/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ${APP_DATA_DIR}/prometheus-data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+
+  grafana:
+    image: grafana/grafana:latest
+    restart: on-failure
+    depends_on:
+      - prometheus
+    ports:
+      - "3001:3000"
+    volumes:
+      - ${APP_DATA_DIR}/grafana-data:/var/lib/grafana
+      - ${APP_DATA_DIR}/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ${APP_DATA_DIR}/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=$APP_PASSWORD
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/pool-provision.json
